@@ -1,0 +1,29 @@
+import streamlit as st
+import openai
+
+# Initialize the OpenAI API
+openai.api_key = 'your-api-key'
+
+# Chatbot function
+def get_response(prompt):
+    response = openai.Completion.create(
+        engine="gpt-3.5-turbo",
+        prompt=prompt,
+        max_tokens=150,
+        temperature=0.7
+    )
+    return response.choices[0].text.strip()
+
+# Streamlit App Interface
+st.title("EcoBuddy - Your Sustainability Chatbot")
+st.write("Ask me anything about how to live a more eco-friendly and sustainable life!")
+
+# User Input
+user_input = st.text_input("Type your question here...")
+
+# Get the response from the chatbot
+if user_input:
+    response = get_response(f"Q: {user_input}\nA:")
+    st.write(response)
+
+# Add additional functionality such as location-based services or carbon calculator
